@@ -18,5 +18,8 @@
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "sync-request": "^6.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
