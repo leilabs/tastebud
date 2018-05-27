@@ -93,18 +93,24 @@ module.exports = (app, router) => {
 
     }
 
-    function populate_playlist(songs, next) {
+    function populate_playlist(songs, req) {
         if (!songs) {
             next();
         }
 
-        syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists", {headers: {
+        // date title
+        var dateObj = new Date();
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"];
+        var datePlain = months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
+        var playlistTitle = "Tastemkr - " + datePlain;
+
+        console.log(playlistTitle)
+
+        var playlist = syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists?name=" + encodeURI(playlistTitle), {headers: {
             "Authorization": "Bearer " + req.cookies.token}
-        })
+        });
 
-        songs.forEach((song) => {
-
-        })
+        console.log(playlist)
     }
 
     router
@@ -130,7 +136,7 @@ module.exports = (app, router) => {
                 for (var i = 0; i < json["tracks"].length; i++) {
                     trackIDs.push(json["tracks"][i]["id"])
                 }
-                res.send(trackIDs);
+                populate_playlist(trackIDs, req, next);
             })
     })
 
@@ -180,17 +186,28 @@ module.exports = (app, router) => {
            
             tracks = []
             for (index in data) {
-                tracks.push(data[index])
-                // var sub_options = {
-                //     url: 'https://api.spotify.com/v1/audio-features/' + data.items[index].track.id,
-                //     headers: {
-                //         'Content-Type': 'application/json', 
-                //         'Authorization': `Bearer ${req.cookies.token}`,
-                //         'Accept': 'application/json'
-                //     }
-                // }
+                var feature_options = {
+                    url: 'https://api.spotify.com/v1/audio-features/' + data[index].track.id,
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Authorization': `Bearer ${req.cookies.token}`,
+                        'Accept': 'application/json'
+                    }
+                }
+                
+                features = {}
+                request(feature_options, (err, r, body) => {
+                    features = JSON.parse(body)
+                    var track = {
+                        'name': data[index].track.name,
+                        'album': data[index].track.album.name,
+                        'artist': data[index].track.artists[0].name,
+                        'id': data[index].track.id,
+                        'features': features
+                    }
+                    tracks.push(track)
+                })
             }
-            console.log(tracks)
             res.send(tracks)
         })
     })

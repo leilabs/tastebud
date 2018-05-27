@@ -1,9 +1,8 @@
 # notes
 
-1. Authenticate Spotify User
-2. 
-2. User's prompted on first login with 
+#routes
 
+# GET `/` root
 
 
 # user object
