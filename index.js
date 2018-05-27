@@ -32,8 +32,7 @@ app.use(morgan('dev')); /// cute logging hehe xd
 
 // Include everything in app/
 require('./app/auth')(app, router)
-require('./app/tracks')(app, router)
-require('./app/user')(app, router)
+require('./app/music')(app, router)
 
 // router
 //     .get('*', (req, res) => {

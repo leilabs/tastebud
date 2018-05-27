@@ -17,7 +17,7 @@ module.exports = (app, router) => {
         var tracks = { tracks: [] }
         request(options, (err, r, body) => { 
             data = JSON.parse(body)
-
+            console.log(data)
             tracks = []
             for (index in data.items) {
                 var sub_options = {
