@@ -20,9 +20,6 @@ module.exports = (app, router) => {
                 }
             })
 
-            console.log("headers: " + req.get('Authorization'));
-            console.log("token: " + req.cookies.token);
-
             var res = syncRequest('GET', url, {
                 headers: {
                     // Fuck this shit
@@ -38,29 +35,13 @@ module.exports = (app, router) => {
     function find_songs(parameters, req, next) {
         var artists = parameters.artists;
         var artistsID = getArtistIds(artists, req);
-        var keysInNumberFormat = {
-            "C": 0,
-            "C#": 1,
-            "D": 2,
-            "D#": 3,
-            "E": 4,
-            "F": 5,
-            "F#": 6,
-            "G": 7,
-            "G#": 8,
-            "A": 9,
-            "A#": 10,
-            "B": 11
-        }
-
-        console.log(keysInNumberFormat[parameters.key])
 
         var queryParams = {
             limit: parameters.tracks,
             seed_genres: parameters.genres.join(","),
             seed_artists: artistsID.join(","),
             target_time_signature: parameters.signature,
-            target_key: keysInNumberFormat[parameters.key]
+            target_key: parameters.key
         }
 
         for (var i = 0; i < parameters.traits.length; i++) {
@@ -99,7 +80,7 @@ module.exports = (app, router) => {
 
     }
 
-    function populate_playlist(songs, req) {
+    function populate_playlist(songs, req, params) {
         if (!songs) {
             next();
         }
@@ -108,9 +89,7 @@ module.exports = (app, router) => {
         var dateObj = new Date();
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"];
         var datePlain = months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
-        var playlistTitle = "Tastemkr - " + datePlain;
-
-        console.log(playlistTitle)
+        var playlistTitle = `${params.traits[0]} ${params.artists[0]} • TasteMakr, ${datePlain}`
 
         var playlist = syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists", {headers: {
             "Authorization": "Bearer " + req.cookies.token},
@@ -135,12 +114,6 @@ module.exports = (app, router) => {
 
     router
         .get('/playlist', (req, res, next) => {
-            // console.log(req.query);
-            // if (!req.params.artists || !req.params.genres || !req.params.traits || !req.params.signature || !req.params.tracks || !req.params.key) {
-            //     next();
-            //     // just in case
-            // }
-
             var test_parameters = {
                 traits: decodeURI(req.query["traits"]).split(","),
                 artists: decodeURI(req.query["artists"]).split(","),
@@ -149,15 +122,10 @@ module.exports = (app, router) => {
                 tracks: req.query["tracks"]
             }
 
-            console.log(req.query["modecontrol"]);
-
             if (req.query["modecontrol"] !== "0") {
-                console.log('adding key and mode');
                 test_parameters["key"] = decodeURI(req.query["key"])
                 test_parameters["mode"] = decodeURI(req.query["mode"])
             }
-
-            console.log(test_parameters)
 
             find_songs(test_parameters, req, (result) => {
                 var json = JSON.parse(result);
@@ -165,8 +133,9 @@ module.exports = (app, router) => {
                 if (json["tracks"]) {
                     for (var i = 0; i < json["tracks"].length; i++) {
                         trackIDs.push(json["tracks"][i]["id"])
+
                     }
-                    var playlist_link = populate_playlist(trackIDs, req, next);
+                    var playlist_link = populate_playlist(trackIDs, req, test_parameters);
                     res.send({url: playlist_link})
                 } else {
                     res.send({error: "nothing found", result: result})

@@ -133,7 +133,6 @@ window.onload = function() {
             } else {
                 enabledTraits.splice(enabledTraits.indexOf(trait), 1);
             }
-            console.log(enabledTraits)
         })
     }
 
@@ -171,9 +170,7 @@ window.onload = function() {
                     break;
             }
 
-            var finalKey = keyArray[keyNumber];
-
-            URL += "key=" + encodeURI(finalKey) + "&";
+            URL += "key=" + encodeURI(keyNumber) + "&";
             
             var f = document.getElementById("key-accidental");
             var mode = f.options[f.selectedIndex].value;
@@ -187,7 +184,6 @@ window.onload = function() {
         }
         URL += "tracks=" + document.getElementById("tracknumber").innerText;
         $.get(URL, function(data) {
-            console.log(data)
             var playlistURL = data["url"];
             var embedURL = playlistURL.replace("/user/", "/embed/user/");
             document.getElementById("playlist").setAttribute("src", embedURL);
