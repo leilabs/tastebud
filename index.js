@@ -31,7 +31,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev')); /// cute logging hehe xd
 
 // Include everything in app/
-require('./app/routes')(app, router)
+require('./app/auth')(app, router)
 require('./app/tracks')(app, router)
+require('./app/user')(app, router)
+
+// router
+//     .get('*', (req, res) => {
+//         res.send('404 bro');
+//     })
 
 app.listen(8080);
