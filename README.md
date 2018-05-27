@@ -1,14 +1,5 @@
 # notes
 
-#routes
-
-# GET `/` root
-
-
-# user object
-
-example
-
 ```json
 {
     "username": "nulljosh",

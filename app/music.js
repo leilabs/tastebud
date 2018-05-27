@@ -89,7 +89,7 @@ module.exports = (app, router) => {
         var dateObj = new Date();
         var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"];
         var datePlain = months[dateObj.getMonth()] + " " + dateObj.getDate() + ", " + dateObj.getFullYear();
-        var playlistTitle = `${params.traits[0]} ${params.artists[0]} • TasteMakr, ${datePlain}`
+        var playlistTitle = `${params.traits[0]} ${params.artists[0]} • TasteBud, ${datePlain}`
 
         var playlist = syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists", {headers: {
             "Authorization": "Bearer " + req.cookies.token},
