@@ -92,6 +92,8 @@ module.exports = (app, router) => {
         }
 
         request(options, (err, r, body) => {
+            if (err) throw err;
+
             next(body);
         })
 
@@ -144,19 +146,31 @@ module.exports = (app, router) => {
                 artists: decodeURI(req.query["artists"]).split(","),
                 genres: decodeURI(req.query["genres"]).split(","),
                 signature: decodeURI(req.query["signature"]),
-                key: decodeURI(req.query["key"]),
-                mode: decodeURI(req.query["mode"]),
                 tracks: req.query["tracks"]
             }
+
+            console.log(req.query["modecontrol"]);
+
+            if (req.query["modecontrol"] !== "0") {
+                console.log('adding key and mode');
+                test_parameters["key"] = decodeURI(req.query["key"])
+                test_parameters["mode"] = decodeURI(req.query["mode"])
+            }
+
+            console.log(test_parameters)
 
             find_songs(test_parameters, req, (result) => {
                 var json = JSON.parse(result);
                 var trackIDs = [];
-                for (var i = 0; i < json["tracks"].length; i++) {
-                    trackIDs.push(json["tracks"][i]["id"])
+                if (json["tracks"]) {
+                    for (var i = 0; i < json["tracks"].length; i++) {
+                        trackIDs.push(json["tracks"][i]["id"])
+                    }
+                    var playlist_link = populate_playlist(trackIDs, req, next);
+                    res.send({url: playlist_link})
+                } else {
+                    res.send({error: "nothing found", result: result})
                 }
-                var playlist_link = populate_playlist(trackIDs, req, next);
-                res.send({url: playlist_link})
             })
     })
 
@@ -211,7 +225,7 @@ module.exports = (app, router) => {
                     headers: {
                         'Content-Type': 'application/json', 
                         'Authorization': `Bearer ${req.cookies.token}`,
-                        'Accept': 'application/json'
+                        'Accept': 'application/json' 
                     }
                 }
                 

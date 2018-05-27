@@ -30,6 +30,12 @@ table {
 
 .editable {
     background-color: lightgrey;
+    transition: border-color 0.2s
+}
+
+.editable:focus {
+    outline: 0;
+    border: 3px solid #0070ff !important;
 }
 
 #time-signature tr {
@@ -51,6 +57,7 @@ table {
     padding-left: 6px;
     padding-right: 6px;
 }
+
 #tracks tr th {
     border: 3px black solid;
     padding-top: 5px;
@@ -66,7 +73,67 @@ table {
     padding-bottom: 12px !important;
 }
 
+#submit tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align:center;
+}
+
+.big {
+    padding-top: 16px !important;
+    padding-bottom: 17px !important;
+}
+
 div.playlist-container {
     width: 320px !important;
     padding-left: 15px;
+}
+
+#trait-table tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align:center;
+}
+
+div#traits {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+div#traits button {
+    margin: 5px;
+}
+
+div.group {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.textbox tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align: center;
+}
+
+table.textbox {
+    display: table;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+div.control-container {
+    width: 100%;
 }

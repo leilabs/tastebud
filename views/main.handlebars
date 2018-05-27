@@ -12,9 +12,43 @@
 </div>
 <div class="row">
     <div class="playlist-container">
-        <iframe src="https://open.spotify.com/embed/user/soops45/playlist/5jS1gbN7PjnV3TfZMlFwbl" class="spotify-playlist" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <iframe src="https://open.spotify.com/embed/user/soops45/playlist/5jS1gbN7PjnV3TfZMlFwbl" id="playlist" class="spotify-playlist" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     </div>
-    <div class="col">
+    <div class="col control-container">
+        <table class="textbox">
+            <tr>
+                <th>artists</th>
+            </tr>
+            <tr>
+                <th id="artists" class="editable inputform" style="width: 100%; text-align: left" contenteditable>
+                    
+                </th>
+            </tr>
+        </table>
+        <table class="textbox">
+            <tr>
+                <th>genres</th>
+            </tr>
+            <tr>
+                <th id="genres" class="editable inputform" style="width: 100%; text-align: left" contenteditable>
+                    
+                </th>
+            </tr>
+        </table>
+        <div class="group">
+            <table id="trait-table">
+                <tr>
+                    <th>musical traits</th>
+                </tr>
+                <tr>
+                    <th class="editable">
+                        <div id="traits">
+                            
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
         <div class="group">
             <table id="tracks">
                 <tr>
@@ -23,19 +57,19 @@
                     </th>
                 </tr>
                 <tr>
-                    <th id="tracks" class="editable tracks" contenteditable>
+                    <th id="tracknumber" class="editable tracks" contenteditable>
                         5
                     </th>
                 </tr>
             </table>
             <table id="key">
                 <tr>
-                    <th colspan="2">
-                        song key
+                    <th style="text-align: center" colspan="2">
+                        song key 
                     </th>
                 </tr>
                 <tr>
-                    <th id="key-letter" class="editable" contenteditable>D</th>
+                    <th id="key-letter" class="editable" style="text-align: center" contenteditable>D</th>
                     <th id="key-sharp">
                         <select id="key-accidental">
                             <option value="natural">♮</option>
@@ -45,11 +79,14 @@
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <select id=>
-                            <option value="major">major</option>
-                            <option value="minor">minor</option>
+                    <th>
+                        <select id="mode">
+                            <option id="major" value="major">M</option>
+                            <option value="minor">m</option>
                         </select>
+                    </th>
+                    <th style="text-align: center" class="editable">
+                        <input type="checkbox" onchange="toggleModeControl()">
                     </th>
                 </tr>
             </table>
@@ -68,6 +105,18 @@
                     <th>4</th>
                 </tr>
             </table>
+            <table id="submit">
+                <tr>
+                    <th>
+                        generate
+                    </th>
+                </tr>
+                <tr>
+                    <th class="big">
+                        <button id="generate" class="btn btn-primary">go</button>
+                    </th>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -76,4 +125,5 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="scripts.js"></script>
