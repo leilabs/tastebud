@@ -20,7 +20,7 @@ module.exports = (app, router) => {
                 }
             })
 
-            console.log("headers: " + req.get('Authorization'))
+            console.log("headers: " + req.get('Authorization'));
             console.log("token: " + req.cookies.token);
 
             var res = syncRequest('GET', url, {
@@ -74,6 +74,10 @@ module.exports = (app, router) => {
                 
                 queryParams[type + "_" + attribute] = value;
             }
+        }
+
+        if (parameters.mode) {
+            queryParams["target_mode"] = parameters.mode;
         }
 
         var queryUrl = encodeURI(buildURL("https://api.spotify.com/v1/recommendations", {
@@ -151,7 +155,7 @@ module.exports = (app, router) => {
                     trackIDs.push(json["tracks"][i]["id"])
                 }
                 var playlist_link = populate_playlist(trackIDs, req, next);
-                res.send(playlist_link)
+                res.send({url: playlist_link})
             })
     })
 

@@ -1,2 +1,47 @@
-<h2>Welcome, {{username}}</h2>
-<a href="/logout">Logout</a>
+<div class="row">
+    <div class="col float-left">
+        <h1>tastemkr</h1>
+    </div>
+    <div class="col float-right" style="text-align: right">
+        <div class="middle">
+            <button type="button" class="btn btn-danger"><a style="color:white" href="/logout"><image src="spotify.svg" style="height: 1.4em; margin-bottom: 2px; margin-right: 8px"></image>log out from spotify</a></button>
+            <br>
+            <i>hello, {{username}}!</i>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <iframe src="https://open.spotify.com/embed/user/soops45/playlist/5jS1gbN7PjnV3TfZMlFwbl" class="spotify-playlist" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    </div>
+    <div class="col">
+        <div class="group">
+            <table id="time-signature">
+                <tr>
+                    <th id="meter" contenteditable>
+                        4
+                    </th>
+                </tr>
+                <tr>
+                    <th>4</th>
+                </tr>
+            </table>
+            <table id="key">
+                <tr>
+                    <th id="meter" contenteditable>
+                        4
+                    </th>
+                </tr>
+                <tr>
+                    <th>4</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="scripts.js"></script>
