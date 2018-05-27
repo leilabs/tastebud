@@ -106,11 +106,25 @@ module.exports = (app, router) => {
 
         console.log(playlistTitle)
 
-        var playlist = syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists?name=" + encodeURI(playlistTitle), {headers: {
-            "Authorization": "Bearer " + req.cookies.token}
+        var playlist = syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists", {headers: {
+            "Authorization": "Bearer " + req.cookies.token},
+            "json": {
+                name: playlistTitle
+            }
         });
 
-        console.log(playlist)
+        var id = JSON.parse(playlist.getBody('utf8')).id;
+        var songURIs = songs;
+        for (var i = 0; i < songURIs.length; i++) {
+            songURIs[i] = "spotify:track:" + songURIs[i];
+        }
+        var songsPlainText = decodeURI(songURIs.join(","))
+
+        var playlistAddSongs = syncRequest("POST", `https://api.spotify.com/v1/users/${req.cookies.username}/playlists/${id}/tracks?uris=${songsPlainText}`, {headers: {
+            "Authorization": "Bearer " + req.cookies.token},
+        });
+
+        return `https://open.spotify.com/user/${req.cookies.username}/playlist/${id}`
     }
 
     router
@@ -136,7 +150,8 @@ module.exports = (app, router) => {
                 for (var i = 0; i < json["tracks"].length; i++) {
                     trackIDs.push(json["tracks"][i]["id"])
                 }
-                populate_playlist(trackIDs, req, next);
+                var playlist_link = populate_playlist(trackIDs, req, next);
+                res.send(playlist_link)
             })
     })
 
