@@ -93,6 +93,20 @@ module.exports = (app, router) => {
 
     }
 
+    function populate_playlist(songs, next) {
+        if (!songs) {
+            next();
+        }
+
+        syncRequest("POST", "https://api.spotify.com/v1/users/" + req.cookies.username + "/playlists", {headers: {
+            "Authorization": "Bearer " + req.cookies.token}
+        })
+
+        songs.forEach((song) => {
+
+        })
+    }
+
     router
         .get('/playlist', (req, res, next) => {
             // console.log(req.query);
@@ -166,32 +180,15 @@ module.exports = (app, router) => {
 
             tracks = []
             for (index in data.items) {
-                console.log(index)//.send(data.items[index])
-                // var sub_options = {
-                //     url: 'https://api.spotify.com/v1/audio-features/' + data.items[index].track.id,
-                //     headers: {
-                //         'Content-Type': 'application/json', 
-                //         'Authorization': `Bearer ${req.cookies.token}`,
-                //         'Accept': 'application/json'
-                //     }
-                // }
-
-                // rp(sub_options)
-                //     .then(function(res) {
-                //         feature = JSON.parse(body);
-
-                //         var track = {
-                //             name:       data.items[index].track.name,
-                //             album:      data.items[index].track.album.name,
-                //             artist:     data.items[index].track.artists[0].name,
-                //             id:         data.items[index].track.id,
-                //             features:   feature
-                //         }
-
-                //         tracks.push(track)
-                //     })
+                var sub_options = {
+                    url: 'https://api.spotify.com/v1/audio-features/' + data.items[index].track.id,
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Authorization': `Bearer ${req.cookies.token}`,
+                        'Accept': 'application/json'
+                    }
+                }
             }
-            // res.send(tracks)
         })
     })
 

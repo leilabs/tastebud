@@ -63,25 +63,6 @@ module.exports = (app, router) => {
             res.redirect('/');
         })
 
-    router
-        .get('/me', (req, res) => {
-            var options = {
-                url: 'https://api.spotify.com/v1/me',
-                headers: {
-                    "Authorization": "Bearer " + req.cookies.token
-                }
-            }
-
-            rp(options)
-                .then(function (html) {
-                    var json = JSON.parse(html);
-                })
-
-                .catch(function (err) {
-                    res.send(err);
-                })
-        })
-
 
     app.use(router);
 }
