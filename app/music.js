@@ -22,7 +22,7 @@ module.exports = (app, router) => {
 
             var res = syncRequest('GET', url, {
                 headers: {
-                    // Fuck this shit
+                    // why god why god do I gotta suffer
                     Authorization: `Bearer ${req.cookies.token}`
                 }
             });

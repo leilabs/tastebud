@@ -151,7 +151,7 @@ window.onload = function() {
             tracks: req.query["tracks"]
         }*/
 
-        var URL = root + "music/playlist?";
+        var URL = 'http://a14613ee.ngrok.io/' + "music/playlist?";
         URL += "traits=" + enabledTraits.join(",") + "&";
         URL += "artists=" + encodeURI(document.getElementById("artists").innerText.replace(", ", ",")) + "&";
         URL += "genres=" + encodeURI(document.getElementById("genres").innerText.replace(", ", ",")) + "&";
