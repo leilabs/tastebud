@@ -147,7 +147,7 @@ window.onload = function() {
             tracks: req.query["tracks"]
         }*/
 
-        var URL = "http://localhost:8080/music/playlist?";
+        var URL = "/music/playlist?";
         URL += "traits=" + enabledTraits.join(",") + "&";
         URL += "artists=" + encodeURI(document.getElementById("artists").innerText.replace(", ", ",")) + "&";
         URL += "genres=" + encodeURI(document.getElementById("genres").innerText.replace(", ", ",")) + "&";
@@ -183,6 +183,7 @@ window.onload = function() {
             URL += "modecontrol=0&"
         }
         URL += "tracks=" + document.getElementById("tracknumber").innerText;
+        console.log(URL);
         $.get(URL, function(data) {
             var playlistURL = data["url"];
             var embedURL = playlistURL.replace("/user/", "/embed/user/");
