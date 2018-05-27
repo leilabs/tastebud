@@ -43,7 +43,7 @@ module.exports = (app, router) => {
                     client_secret: keys.private,
                     grant_type: 'authorization_code',
                     code: req.query.code,
-                    redirect_uri: root + '/callback'
+                    redirect_uri: root + 'callback'
                 }
             }
 
