@@ -23,8 +23,8 @@ module.exports = (app, router) => {
     // TODO: Different response depending on authenticated token present
     router
         .get('/', (req, res) => {
-            if (req.cookies.token) {
-                res.render('main', {token: req.cookies.token});   
+            if (req.cookies.token && req.cookies.username) {
+                res.render('main', {token: req.cookies.token, username: req.cookies.username});   
             } else {
                 res.render('index', {url: authenticate_url});
             }
@@ -50,16 +50,32 @@ module.exports = (app, router) => {
 
                 var json = JSON.parse(body);
 
-                var cookieOptions = { maxAge: 1000 * 60 * 60 } // 1h
-                res.cookie('token', json.access_token, cookieOptions);
+                var meOptions = {
+                    url: 'https://api.spotify.com/v1/me',
+                    headers: {
+                        'Authorization': `Bearer ${json.access_token}`
+                    }
+                }
 
-                res.redirect('/');
+                request(meOptions, (e, r, b) => {
+                    if (e) throw e;
+
+                    var me = JSON.parse(b);
+                    console.log(me.id);
+                    
+                    var cookieOptions = { maxAge: 1000 * 60 * 60 } // 1h
+                    res.cookie('token', json.access_token, cookieOptions);
+                    res.cookie('username', me.id, cookieOptions);
+
+                    res.redirect('/');
+                })
             })
         });
 
     router
         .get('/logout', authenticated, (req, res) => {
             res.clearCookie('token');
+            res.clearCookie('username');
             res.redirect('/');
         })
 
