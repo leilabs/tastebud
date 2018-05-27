@@ -3,8 +3,13 @@ body {
     padding: 30px;
 }
 
+.container {
+    width: 720px !important;
+}
+
 .middle {
-    margin-top: 12px;
+    margin-top: 4px;
+    margin-bottom: 26px;
 }
 
 button.spotify a {
@@ -17,4 +22,51 @@ button.spotify {
 iframe.spotify-playlist {
     width: 300px;
     height: 600px;
+}
+
+table {
+    display: inline-block;
+}
+
+.editable {
+    background-color: lightgrey;
+}
+
+#time-signature tr {
+    border: 3px black solid;
+    text-align: center;
+}
+
+#time-signature tr th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#key tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+#tracks tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align:center;
+}
+
+#tracks tr th.tracks {
+    font-size: 2em;
+    padding-top: 11px !important;
+    padding-bottom: 12px !important;
+}
+
+div.playlist-container {
+    width: 320px !important;
+    padding-left: 15px;
 }

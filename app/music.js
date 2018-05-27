@@ -145,6 +145,7 @@ module.exports = (app, router) => {
                 genres: decodeURI(req.query["genres"]).split(","),
                 signature: decodeURI(req.query["signature"]),
                 key: decodeURI(req.query["key"]),
+                mode: decodeURI(req.query["mode"]),
                 tracks: req.query["tracks"]
             }
 

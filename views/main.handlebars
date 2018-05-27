@@ -11,24 +11,56 @@
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="playlist-container">
         <iframe src="https://open.spotify.com/embed/user/soops45/playlist/5jS1gbN7PjnV3TfZMlFwbl" class="spotify-playlist" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     </div>
     <div class="col">
         <div class="group">
-            <table id="time-signature">
+            <table id="tracks">
                 <tr>
-                    <th id="meter" contenteditable>
-                        4
+                    <th>
+                        tracks
                     </th>
                 </tr>
                 <tr>
-                    <th>4</th>
+                    <th id="tracks" class="editable tracks" contenteditable>
+                        5
+                    </th>
                 </tr>
             </table>
             <table id="key">
                 <tr>
-                    <th id="meter" contenteditable>
+                    <th colspan="2">
+                        song key
+                    </th>
+                </tr>
+                <tr>
+                    <th id="key-letter" class="editable" contenteditable>D</th>
+                    <th id="key-sharp">
+                        <select id="key-accidental">
+                            <option value="natural">♮</option>
+                            <option value="sharp">♯</option>
+                            <option value="flat">♭</option>
+                        </select>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <select id=>
+                            <option value="major">major</option>
+                            <option value="minor">minor</option>
+                        </select>
+                    </th>
+                </tr>
+            </table>
+            <table id="time-signature">
+                <tr>
+                    <th>
+                        time
+                    </th>
+                </tr>
+                <tr>
+                    <th id="meter" class="editable" contenteditable>
                         4
                     </th>
                 </tr>
