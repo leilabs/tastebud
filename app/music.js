@@ -20,16 +20,15 @@ module.exports = (app, router) => {
                 }
             })
 
-            var options = {
-                url: url,
+            console.log("headers: " + req.get('Authorization'))
+            console.log("token: " + req.cookies.token);
+
+            var res = syncRequest('GET', url, {
                 headers: {
+                    // Fuck this shit
                     Authorization: `Bearer ${req.cookies.token}`
                 }
-            }
-
-            var res = syncRequest('GET', url, {headers: {
-                Authorization: `Bearer ${req.cookies.token}`
-            }});
+            });
 
             ids.push(JSON.parse(res.getBody()).artists.items[0].id)
         }
@@ -151,7 +150,7 @@ module.exports = (app, router) => {
         })
     })
 
-    router.get('/top', (req, res) => {
+    router.get('/tracks', (req, res) => {
         var options = {
             url: 'https://api.spotify.com/v1/me/tracks',
             headers: {
@@ -167,31 +166,32 @@ module.exports = (app, router) => {
 
             tracks = []
             for (index in data.items) {
-                var sub_options = {
-                    url: 'https://api.spotify.com/v1/audio-features/' + data.items[index].track.id,
-                    headers: {
-                        'Content-Type': 'application/json', 
-                        'Authorization': `Bearer ${req.cookies.token}`,
-                        'Accept': 'application/json'
-                    }
-                }
+                console.log(index)//.send(data.items[index])
+                // var sub_options = {
+                //     url: 'https://api.spotify.com/v1/audio-features/' + data.items[index].track.id,
+                //     headers: {
+                //         'Content-Type': 'application/json', 
+                //         'Authorization': `Bearer ${req.cookies.token}`,
+                //         'Accept': 'application/json'
+                //     }
+                // }
 
-                rp(sub_options)
-                    .then(function(res) {
-                        feature = JSON.parse(body);
+                // rp(sub_options)
+                //     .then(function(res) {
+                //         feature = JSON.parse(body);
 
-                        var track = {
-                            name:       data.items[index].track.name,
-                            album:      data.items[index].track.album.name,
-                            artist:     data.items[index].track.artists[0].name,
-                            id:         data.items[index].track.id,
-                            features:   feature
-                        }
+                //         var track = {
+                //             name:       data.items[index].track.name,
+                //             album:      data.items[index].track.album.name,
+                //             artist:     data.items[index].track.artists[0].name,
+                //             id:         data.items[index].track.id,
+                //             features:   feature
+                //         }
 
-                        tracks.push(track)
-                    })
+                //         tracks.push(track)
+                //     })
             }
-            res.send(tracks)
+            // res.send(tracks)
         })
     })
 
