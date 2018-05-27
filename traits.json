@@ -1,0 +1,94 @@
+{
+    "live": {
+        "attributes": {
+            "liveness": {
+                "value": 0.8,
+                "type": "min"
+            }
+        }
+    },
+    "studio": {
+        "attributes": {
+            "liveness": {
+                "value": 0.6,
+                "type": "max"
+            }
+        }
+    },
+    "acoustic": {
+        "attributes": {
+            "acousticness": {
+                "value": 0.8,
+                "type": "min"
+            }
+        }
+    },
+    "hype": {
+        "attributes": {
+            "energy": {
+                "value": 0.7,
+                "type": "min"
+            }
+        }
+    },
+    "mellow": {
+        "attributes": {
+            "energy": {
+                "value": 0.4,
+                "type": "max"
+            }
+        }
+    },
+    "happy": {
+        "attributes": {
+            "mode": {
+                "value": 1,
+                "type": "target"
+            },
+            "valence": {
+                "value": 0.6,
+                "type": "min"
+            }
+        }
+    },
+    "sad": {
+        "attributes": {
+            "mode": {
+                "value": 0,
+                "type": "target"
+            },
+            "valence": {
+                "value": 0.4,
+                "type": "max"
+            }
+        }
+    },
+    "melancholy": {
+        "attributes": {
+            "mode": {
+                "value": 0,
+                "type": "target"
+            },
+            "valence": {
+                "value": 0.6,
+                "type": "max"
+            }
+        }
+    },
+    "instrumental": {
+        "attributes": {
+            "instrumentalness": {
+                "value": 0.5,
+                "type": "min"
+            }
+        }
+    },
+    "danceable": {
+        "attributes": {
+            "danceability": {
+                "value": 0.5,
+                "type": "min"
+            }
+        }
+    }
+}
