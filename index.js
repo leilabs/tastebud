@@ -19,6 +19,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.set('trust proxy', 1)
+
 app.use(cookie());
 
 // Expose /public as static
