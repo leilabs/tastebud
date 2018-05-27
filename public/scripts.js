@@ -93,6 +93,7 @@ var traits = {
     }
 }
 var enabledTraits = [];
+var root;
 
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
@@ -117,6 +118,9 @@ function toggleModeControl() {
 }
 
 window.onload = function() {
+    $.get("url.json", function(data) {
+        root = data.root;
+    })
     document.getElementById("key-letter").removeAttribute("contenteditable");
     document.getElementById("key-accidental").setAttribute("disabled", true);
     document.getElementById("mode").setAttribute("disabled", true);
@@ -147,7 +151,7 @@ window.onload = function() {
             tracks: req.query["tracks"]
         }*/
 
-        var URL = "/music/playlist?";
+        var URL = root + "/music/playlist?";
         URL += "traits=" + enabledTraits.join(",") + "&";
         URL += "artists=" + encodeURI(document.getElementById("artists").innerText.replace(", ", ",")) + "&";
         URL += "genres=" + encodeURI(document.getElementById("genres").innerText.replace(", ", ",")) + "&";

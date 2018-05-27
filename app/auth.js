@@ -1,7 +1,9 @@
 const request = require('request')
     , syncRequest = require('sync-request')
     , rp = require('request-promise')
-    , buildURL = require('build-url');
+    , buildURL = require('build-url')
+    , root = require('../public/url').root
+
 
 module.exports = (app, router) => {
 
@@ -41,7 +43,7 @@ module.exports = (app, router) => {
                     client_secret: keys.private,
                     grant_type: 'authorization_code',
                     code: req.query.code,
-                    redirect_uri: 'http://localhost:8080/callback'
+                    redirect_uri: root + '/callback'
                 }
             }
 
