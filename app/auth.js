@@ -11,7 +11,7 @@ module.exports = (app, router) => {
     var traits = require('../traits');
 
     var scopes = 'user-top-read user-read-recently-played user-library-read playlist-modify-public';
-    let authenticate_url = `https://accounts.spotify.com/authorize?client_id=${keys.public}&response_type=code&redirect_uri=${root}/callback&scope=${scopes}`;
+    let authenticate_url = `https://accounts.spotify.com/authorize?client_id=${keys.public}&response_type=code&redirect_uri=${root}callback&scope=${scopes}`;
 
     function authenticated(req, res, next) {
         if (req.cookies.token) {
