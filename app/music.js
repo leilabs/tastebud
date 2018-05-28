@@ -22,7 +22,6 @@ module.exports = (app, router) => {
 
             var res = syncRequest('GET', url, {
                 headers: {
-                    // Fuck this shit
                     Authorization: `Bearer ${req.cookies.token}`
                 }
             });
@@ -47,12 +46,12 @@ module.exports = (app, router) => {
         for (var i = 0; i < parameters.traits.length; i++) {
             var traitName = parameters.traits[i];
             var traitAttributes = traits[traitName]["attributes"]
-            
+
             for (var j = 0; j < Object.keys(traitAttributes).length; j++) {
                 var type = Object.values(traitAttributes)[j]["type"];
                 var value = Object.values(traitAttributes)[j]["value"];
                 var attribute = Object.keys(traitAttributes)[j]
-                
+
                 queryParams[type + "_" + attribute] = value;
             }
         }
@@ -147,13 +146,13 @@ module.exports = (app, router) => {
         var options = {
             url: `https://api.spotify.com/v1/tracks/${req.params.id}`,
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${req.cookies.token}`,
                 'Accept': 'application/json'
             }
         }
 
-        request(options, (err, r, body) => { 
+        request(options, (err, r, body) => {
             res.send(JSON.parse(body))
         })
     })
@@ -162,13 +161,13 @@ module.exports = (app, router) => {
         var options = {
             url: `https://api.spotify.com/v1/audio-features/${req.params.id}`,
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${req.cookies.token}`,
                 'Accept': 'application/json'
             }
         }
 
-        request(options, (err, r, body) => { 
+        request(options, (err, r, body) => {
             res.send(JSON.parse(body))
         })
     })
@@ -177,27 +176,27 @@ module.exports = (app, router) => {
         var options = {
             url: 'https://api.spotify.com/v1/me/tracks',
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${req.cookies.token}`,
                 'Accept': 'application/json'
             }
         }
-        
+
         var tracks = { tracks: [] }
-        request(options, (err, r, body) => { 
+        request(options, (err, r, body) => {
             data = (JSON.parse(body)).items
-           
+
             tracks = []
             for (index in data) {
                 var feature_options = {
                     url: 'https://api.spotify.com/v1/audio-features/' + data[index].track.id,
                     headers: {
-                        'Content-Type': 'application/json', 
+                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${req.cookies.token}`,
-                        'Accept': 'application/json' 
+                        'Accept': 'application/json'
                     }
                 }
-                
+
                 features = {}
                 request(feature_options, (err, r, body) => {
                     features = JSON.parse(body)
