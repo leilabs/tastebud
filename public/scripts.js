@@ -100,7 +100,7 @@ function createElementFromHTML(htmlString) {
     div.innerHTML = htmlString.trim();
 
     // Change this to div.childNodes to support multiple top-level nodes
-    return div.firstChild; 
+    return div.firstChild;
 }
 
 var modeControl = false;
@@ -128,7 +128,7 @@ window.onload = function() {
     for (var i = 0; i < Object.keys(traits).length; i++) {
         var traitName = Object.keys(traits)[i];
         var button = document.createElement("button");
-        
+
         document.getElementById("traits").appendChild(createElementFromHTML(`<button type="button" id="trait-${traitName}" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">${traitName}</button>`));
         document.getElementById("trait-" + traitName).addEventListener("click", function(e) {
             var trait = e.srcElement.textContent;
@@ -141,19 +141,11 @@ window.onload = function() {
     }
 
     document.getElementById("generate").addEventListener("click", function(e) {
-        /*var test_parameters = {
-            traits: decodeURI(req.query["traits"]).split(","),
-            artists: decodeURI(req.query["artists"]).split(","),
-            genres: decodeURI(req.query["genres"]).split(","),
-            signature: decodeURI(req.query["signature"]),
-            key: decodeURI(req.query["key"]),
-            mode: decodeURI(req.query["mode"]),
-            tracks: req.query["tracks"]
-        }*/
-
-        var URL = 'http://72e7ef7b.ngrok.io/' + "music/playlist?";
+        var server = "http://43499a65.ngrok.io/"
+        var URL = server + "music/playlist?";
         URL += "traits=" + enabledTraits.join(",") + "&";
         URL += "artists=" + encodeURI(document.getElementById("artists").innerText.replace(", ", ",")) + "&";
+        URL += "tracks=" + encodeURI(document.getElementById("tracks").innerText.replace(", ", ",")) + "&";
         URL += "genres=" + encodeURI(document.getElementById("genres").innerText.replace(", ", ",")) + "&";
         URL += "signature=" + document.getElementById("meter").innerText + "&";
         if (modeControl) {
@@ -175,7 +167,7 @@ window.onload = function() {
             }
 
             URL += "key=" + encodeURI(keyNumber) + "&";
-            
+
             var f = document.getElementById("key-accidental");
             var mode = f.options[f.selectedIndex].value;
             if (mode == "major") {
@@ -186,13 +178,14 @@ window.onload = function() {
         } else {
             URL += "modecontrol=0&"
         }
-        URL += "tracks=" + document.getElementById("tracknumber").innerText;
+        URL += "limit=" + document.getElementById("songs").innerText;
+
         console.log(URL);
         $.get(URL, function(data) {
             var playlistURL = data["url"];
             var embedURL = playlistURL.replace("/user/", "/embed/user/");
             document.getElementById("playlist").setAttribute("src", embedURL);
-            document.getElementById("playlist").contentWindow.location.reload(); 
+            document.getElementById("playlist").contentWindow.location.reload();
         });
     });
 }

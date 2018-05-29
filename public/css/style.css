@@ -87,6 +87,21 @@ table {
     padding-bottom: 12px !important;
 }
 
+#songs tr th {
+    border: 3px black solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-align:center;
+}
+
+#songs tr th.songs {
+    font-size: 2em;
+    padding-top: 11px !important;
+    padding-bottom: 12px !important;
+}
+
 #submit tr th {
     border: 3px black solid;
     padding-top: 5px;
