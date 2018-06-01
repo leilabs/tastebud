@@ -19,7 +19,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.set('trust proxy', 1)
+app.set('trust proxy')
 
 app.use(cookie());
 
@@ -36,9 +36,10 @@ app.use(morgan('dev')); /// cute logging hehe xd
 require('./app/auth')(app, router)
 require('./app/music')(app, router)
 
-// router
-//     .get('*', (req, res) => {
-//         res.send('404 bro');
-//     })
+// 404
+router
+    .get('*', (req, res) => {
+        res.send('404 bro');
+    })
 
 app.listen(PORT);

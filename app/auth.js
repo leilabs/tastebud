@@ -22,7 +22,6 @@ module.exports = (app, router) => {
     }
 
     // Index route
-    // TODO: Different response depending on authenticated token present
     router
         .get('/', (req, res) => {
             if (req.cookies.token && req.cookies.username) {

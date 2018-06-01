@@ -141,7 +141,7 @@ window.onload = function() {
     }
 
     document.getElementById("generate").addEventListener("click", function(e) {
-        var server = "http://43499a65.ngrok.io/"
+        var server = "https://spotify-tastebud.herokuapp.com/"
         var URL = server + "music/playlist?";
         URL += "traits=" + enabledTraits.join(",") + "&";
         URL += "artists=" + encodeURI(document.getElementById("artists").innerText.replace(", ", ",")) + "&";
